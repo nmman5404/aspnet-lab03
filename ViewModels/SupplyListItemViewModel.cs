@@ -13,7 +13,6 @@ public class SupplyListItemViewModel
     // Các thuộc tính tự động tính toán phục vụ hiển thị giao diện
     public string PriceText => $"{UnitPrice:N0} VND";
     
-    // 2 dòng dưới đây sẽ giải quyết triệt để lỗi biên dịch của bạn
     public decimal InventoryValue => UnitPrice * Quantity;
     public string InventoryValueText => $"{InventoryValue:N0} VND"; 
 

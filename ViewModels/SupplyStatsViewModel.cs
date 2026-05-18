@@ -8,7 +8,7 @@ public class SupplyStatsViewModel
     public int OutOfStockCount { get; set; }
     public int NeedReorderCount { get; set; }
     
-    // BỔ SUNG: Các thuộc tính phục vụ phần chi tiết thống kê hàng dưới
+    // Các thuộc tính phục vụ phần chi tiết thống kê 
     public int NormalStockCount { get; set; }
     public decimal MaxInventoryValue { get; set; }
     public decimal AvgInventoryValue { get; set; }

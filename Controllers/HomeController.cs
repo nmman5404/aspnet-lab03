@@ -19,7 +19,7 @@ public class HomeController : Controller
         return View();
     }
 
-    // Action xử lý trang Privacy (nếu bạn giữ lại trang này)
+    // Action xử lý trang Privacy 
     public IActionResult Privacy()
     {
         return View();

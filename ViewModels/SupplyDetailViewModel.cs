@@ -27,7 +27,6 @@ public class SupplyDetailViewModel
         }
     }
 
-    // Thêm thuộc tính gợi ý nhập hàng giống như logic bài mẫu
     public string ReorderSuggestion  
     {  
         get  
