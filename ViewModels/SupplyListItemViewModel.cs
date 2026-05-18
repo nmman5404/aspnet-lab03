@@ -10,7 +10,13 @@ public class SupplyListItemViewModel
     public int Quantity { get; set; }
     public int MinStock { get; set; }
 
+    // Các thuộc tính tự động tính toán phục vụ hiển thị giao diện
     public string PriceText => $"{UnitPrice:N0} VND";
+    
+    // 2 dòng dưới đây sẽ giải quyết triệt để lỗi biên dịch của bạn
+    public decimal InventoryValue => UnitPrice * Quantity;
+    public string InventoryValueText => $"{InventoryValue:N0} VND"; 
+
     public string StockStatus
     {
         get
@@ -20,13 +26,14 @@ public class SupplyListItemViewModel
             return "Còn hàng";
         }
     }
+
     public string StockStatusClass
     {
         get
         {
-            if (Quantity <= 0) return "text-danger fw-bold";
-            if (Quantity <= MinStock) return "text-warning fw-bold";
-            return "text-success fw-bold";
+            if (Quantity <= 0) return "badge badge-danger";
+            if (Quantity <= MinStock) return "badge badge-warning";
+            return "badge badge-success";
         }
     }
 }

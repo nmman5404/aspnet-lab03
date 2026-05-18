@@ -18,14 +18,23 @@ public class SupplyService
     public Supply? GetById(int id) => _supplies.FirstOrDefault(s => s.Id == id);
 
     public SupplyStatsViewModel GetStats()
+{
+    int totalSupplies = _supplies.Count;
+    int totalQuantity = _supplies.Sum(s => s.Quantity);
+    decimal totalValue = _supplies.Sum(s => s.UnitPrice * s.Quantity);
+    var inventoryValues = _supplies.Select(s => s.UnitPrice * s.Quantity).ToList();
+
+    return new SupplyStatsViewModel
     {
-        return new SupplyStatsViewModel
-        {
-            TotalSupplies = _supplies.Count,
-            TotalQuantity = _supplies.Sum(s => s.Quantity),
-            TotalInventoryValue = _supplies.Sum(s => s.UnitPrice * s.Quantity),
-            OutOfStockCount = _supplies.Count(s => s.Quantity <= 0),
-            NeedReorderCount = _supplies.Count(s => s.Quantity > 0 && s.Quantity <= s.MinStock)
-        };
-    }
+        TotalSupplies = totalSupplies,
+        TotalQuantity = totalQuantity,
+        TotalInventoryValue = totalValue,
+        OutOfStockCount = _supplies.Count(s => s.Quantity <= 0),
+        NeedReorderCount = _supplies.Count(s => s.Quantity > 0 && s.Quantity <= s.MinStock),
+        NormalStockCount = _supplies.Count(s => s.Quantity > s.MinStock),
+        MaxInventoryValue = inventoryValues.Any() ? inventoryValues.Max() : 0,
+        AvgInventoryValue = totalSupplies > 0 ? totalValue / totalSupplies : 0,
+        AvgQuantity = totalSupplies > 0 ? (double)totalQuantity / totalSupplies : 0
+    };
+}
 }

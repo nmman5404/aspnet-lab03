@@ -1,22 +1,68 @@
-@model SupplyDetailViewModel
-@{
-    ViewData["Title"] = "Chi tiết vật tư";
-}
-
-<h2>Chi tiết vật tư: @Model.Name</h2>
-
-<table class="table table-striped mt-4">
-    <tr><th>ID</th><td>@Model.Id</td></tr>
-    <tr><th>SKU</th><td>@Model.Sku</td></tr>
-    <tr><th>Tên vật tư</th><td>@Model.Name</td></tr>
-    <tr><th>Nhóm</th><td>@Model.Category</td></tr>
-    <tr><th>Nhà cung cấp</th><td>@Model.Supplier</td></tr>
-    <tr><th>Đơn giá</th><td>@Model.PriceText</td></tr>
-    <tr><th>Số lượng tồn</th><td>@Model.Quantity</td></tr>
-    <tr><th>Mức tồn tối thiểu</th><td>@Model.MinStock</td></tr>
-    <tr><th>Tổng giá trị</th><td>@Model.InventoryValueText</td></tr>
-    <tr><th>Trạng thái</th><td class="fw-bold">@Model.StockStatus</td></tr>
-    <tr><th>Cập nhật lần cuối</th><td>@Model.LastUpdatedText</td></tr>
-</table>
-
-<a href="/Supplies" class="btn btn-secondary">Quay lại danh sách</a>
+@model SupplyDetailViewModel  
+  
+@{  
+    ViewData["Title"] = "Supply Detail";  
+}  
+  
+<div class="page-header">  
+    <div>  
+        <h2 class="page-title">📦 Product Detail</h2>  
+        <p class="page-description">Thông tin chi tiết của sản phẩm trong kho.</p>  
+    </div>  
+    <a class="btn btn-outline-primary" href="/Supplies">  
+        ← Quay lại danh sách  
+    </a>  
+</div>  
+  
+<div class="detail-layout mt-4">  
+    <div>  
+        <table class="table table-bordered bg-white align-middle shadow-sm">  
+            <tr><th style="width: 35%; background: #fafafa;">ID</th><td>@Model.Id</td></tr>  
+            <tr><th style="background: #fafafa;">SKU</th><td class="fw-bold text-secondary">@Model.Sku</td></tr>  
+            <tr><th style="background: #fafafa;">Tên sản phẩm</th><td class="fw-bold text-dark">@Model.Name</td></tr>  
+            <tr><th style="background: #fafafa;">Nhóm sản phẩm</th><td>@Model.Category</td></tr>  
+            <tr><th style="background: #fafafa;">Nhà cung cấp</th><td>@Model.Supplier</td></tr>  
+            <tr><th style="background: #fafafa;">Giá bán</th><td>@Model.PriceText</td></tr>  
+            <tr><th style="background: #fafafa;">Số lượng tồn kho</th><td>@Model.Quantity</td></tr>  
+            <tr><th style="background: #fafafa;">Mức tồn tối thiểu</th><td>@Model.MinStock</td></tr>  
+            <tr><th style="background: #fafafa;">Giá trị tồn kho</th><td>@Model.InventoryValueText</td></tr>  
+            <tr>  
+                <th style="background: #fafafa;">Trạng thái</th>  
+                <td>  
+                    <span class="@(Model.Quantity <= 0 ? "text-danger fw-bold" : (Model.Quantity <= Model.MinStock ? "text-warning fw-bold" : "text-success fw-bold"))">  
+                        @Model.StockStatus  
+                    </span>  
+                </td>  
+            </tr>  
+            <tr><th style="background: #fafafa;">Gợi ý nhập hàng</th><td class="text-muted small">@Model.ReorderSuggestion</td></tr>  
+            <tr><th style="background: #fafafa;">Cập nhật lần cuối</th><td>@Model.LastUpdatedText</td></tr>  
+        </table>  
+    </div>  
+  
+    <div>  
+        @{  
+            string cardStatusClass = "success";  
+            string statusDescription = "Số lượng tồn kho hiện tại đang ở mức an toàn.";  
+            if (Model.Quantity <= 0) { cardStatusClass = "danger"; statusDescription = "Cần nhập hàng ngay vì vật tư này đã hết trong kho."; }  
+            else if (Model.Quantity <= Model.MinStock) { cardStatusClass = "warning"; statusDescription = "Số lượng tồn kho hiện tại đang thấp hơn hoặc bằng mức tồn tối thiểu."; }  
+        }  
+        
+        <div class="side-card @cardStatusClass shadow-sm">  
+            <div class="text-muted small">🛒 Trạng thái tồn kho</div>  
+            <h3 class="@(cardStatusClass == "danger" ? "text-danger" : (cardStatusClass == "warning" ? "text-warning" : "text-success"))">@Model.StockStatus</h3>  
+            <p class="text-secondary">@statusDescription</p>  
+        </div>  
+  
+        <div class="side-card info shadow-sm">  
+            <div class="text-muted small">💵 Giá trị tồn kho hiện tại</div>  
+            <h3 class="text-primary">@Model.InventoryValueText</h3>  
+            <p class="text-secondary">Tính theo giá bán và số lượng tồn kho hiện có.</p>  
+        </div>  
+  
+        <div class="side-card success shadow-sm" style="background: #f0fdf4; border-color: #bbf7d0;">  
+            <div class="text-muted small">📅 Cập nhật lần cuối</div>  
+            <h3 class="text-success" style="font-size: 24px;">@Model.LastUpdatedText</h3>  
+            <p class="text-secondary">Thông tin sản phẩm được cập nhật gần nhất.</p>  
+        </div>  
+    </div>  
+</div>

@@ -1,6 +1,23 @@
 ﻿@{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Chính sách bảo mật dữ liệu";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="container my-4">
+    <h1 class="text-danger fw-bold">@ViewData["Title"]</h1>
+    <p class="text-muted">Cập nhật lần cuối: May 2026</p>
+    
+    <div class="alert alert-warning mt-4 shadow-sm">
+        <strong>CẢNH BÁO NỘI BỘ:</strong> Đây là hệ thống quản lý dữ liệu lâm sàng và thiết bị y tế thuộc phạm vi lưu hành nội bộ của cơ sở.
+    </div>
+
+    <div class="card p-4 mt-3 border-0 bg-light shadow-sm">
+        <h5 class="fw-bold text-secondary">Quy định bảo mật thông tin:</h5>
+        <ul class="mb-0">
+            <li class="mb-2">Mọi thông tin về đơn giá, số lượng tồn kho thực tế và danh sách nhà cung cấp (Supplier) đều là tài sản bảo mật.</li>
+            <li class="mb-2">Nhân viên kỹ thuật và điều phối viên không được phép tự ý xuất bản dữ liệu dạng JSON (`/Supplies/SupplyJson`) ra các kênh công cộng ngoài mục đích kiểm toán.</li>
+            <li>Hệ thống tự động ghi lại lịch sử truy cập của các tài khoản để phục vụ công tác giám sát định kỳ.</li>
+        </ul>
+    </div>
+    
+    <a href="/" class="btn btn-secondary mt-4">Quay lại trang chủ</a>
+</div>

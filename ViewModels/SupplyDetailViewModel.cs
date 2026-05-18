@@ -26,4 +26,15 @@ public class SupplyDetailViewModel
             return "Còn hàng";
         }
     }
+
+    // Thêm thuộc tính gợi ý nhập hàng giống như logic bài mẫu
+    public string ReorderSuggestion  
+    {  
+        get  
+        {  
+            if (Quantity <= 0) return "Cần nhập hàng ngay vì vật tư này đã hết trong kho.";  
+            if (Quantity <= MinStock) return $"Nên nhập thêm. Tồn kho hiện tại chỉ còn {Quantity}, mức tối thiểu an toàn là {MinStock}.";  
+            return "Tồn kho đang ổn định, chưa cần nhập thêm.";  
+        }  
+    }
 }
