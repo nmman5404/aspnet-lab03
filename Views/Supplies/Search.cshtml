@@ -1,0 +1,68 @@
+@model MedicalSupplies.Mvc.ViewModels.SupplySearchViewModel
+
+@{
+    ViewData["Title"] = "Search Supplies";
+}
+
+<div class="page-header">
+    <div>
+        <h2 class="page-title">Tìm kiếm Vật tư y tế</h2>
+        <p class="page-description">Form GET dùng Query String để tìm kiếm sản phẩm.</p>
+    </div>
+    <a class="btn btn-light" asp-controller="Supplies" asp-action="Index">Quay lại danh sách</a>
+</div>
+
+<div class="row">
+    <!-- Cột chứa Form tìm kiếm (Bên trái) -->
+    <div class="col-md-4">
+        <form class="p-4 bg-white shadow-sm rounded-3 border" asp-controller="Supplies" asp-action="Search" method="get">
+            <div class="mb-3">
+                <label asp-for="Keyword" class="form-label fw-bold">Từ khóa (Tên/SKU)</label>
+                <input asp-for="Keyword" class="form-control" placeholder="VD: Khẩu trang, MED-..." />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Category" class="form-label fw-bold">Nhóm phân loại</label>
+                <input asp-for="Category" class="form-control" placeholder="VD: Bảo hộ cá nhân" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="MinPrice" class="form-label fw-bold">Giá tối thiểu (VND)</label>
+                <input asp-for="MinPrice" class="form-control" placeholder="0" />
+            </div>
+            
+            <div class="mb-4">
+                <label asp-for="MaxPrice" class="form-label fw-bold">Giá tối đa (VND)</label>
+                <input asp-for="MaxPrice" class="form-control" placeholder="500000" />
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
+                <a asp-action="Search" class="btn btn-secondary w-100">Reset</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Cột chứa kết quả (Bên phải) -->
+    <div class="col-md-8">
+        <div class="p-4 bg-white shadow-sm rounded-3 border">
+            <h4 class="mb-4 fw-bold">Kết quả tìm kiếm</h4>
+            
+            @if (Model.Results == null || Model.Results.Count == 0)
+            {
+                <div class="alert alert-warning">Không tìm thấy vật tư nào phù hợp. Vui lòng thử từ khóa khác.</div>
+            }
+            else
+            {
+                <div class="row row-cols-1 row-cols-md-2 g-3">
+                    @foreach (var item in Model.Results)
+                    {
+                        <div class="col">
+                            <partial name="_SupplyCard" model="item" />
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

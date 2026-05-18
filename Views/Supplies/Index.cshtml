@@ -1,75 +1,46 @@
-@model List<SupplyListItemViewModel>  
-  
-@{  
- ViewData["Title"] = "Supplies Catalog";  
- var totalItems = Model.Count;  
-}  
-  
-<div class="page-header">  
- <div>  
- <h2 class="page-title">Supplies Catalog</h2>  
- <p class="page-description">  
- Đây là trang danh sách vật tư y tế của cơ sở.  
- </p>  
- </div>  
-  
- <div>  
- <a class="btn btn-primary" href="/Supplies/Stats">  
- Xem thống kê tồn kho  
- </a>  
- </div>  
-</div>  
-  
-<div class="info-panel">  
- <strong>Tổng số loại vật tư:</strong> @totalItems  
-</div>  
-  
-@if (Model.Count == 0)  
-{  
- <p>Chưa có vật tư nào trong hệ thống.</p>  
-}  
-else  
-{  
- <table class="table table-bordered table-striped align-middle">  
- <thead>  
- <tr>  
- <th>SKU</th>  
- <th>Tên vật tư</th>  
- <th>Nhóm</th>  
- <th>Giá bán</th>  
- <th>Số lượng</th>  
- <th>Giá trị tồn kho</th>  
- <th>Trạng thái</th>  
- <th>Chi tiết</th>  
- </tr>  
- </thead>  
-  
- <tbody>  
- @foreach (var item in Model)  
- {  
- <tr>  
- <td>@item.Sku</td>  
- <td>@item.Name</td>  
- <td>@item.Category</td>  
- <td>@item.PriceText</td>  
- <td>@item.Quantity</td>  
- <td>@item.InventoryValueText</td>  
- <td>  
- <span class="@item.StockStatusClass">  
- @item.StockStatus  
- </span>  
- </td>  
- <td>  
- <a href="/Supplies/Detail/@item.Id" class="btn btn-sm btn-link">Xem</a>  
- </td>  
- </tr>  
- }  
- </tbody>  
- </table>
-}  
-  
-<p class="mt-4">  
- <a class="btn btn-light" href="/">  
- Quay lại trang chủ  
- </a>  
-</p>
+@model List<SupplyListItemViewModel>
+
+@{
+    ViewData["Title"] = "Supplies Catalog";
+    var totalItems = Model.Count;
+}
+
+<div class="page-header">
+    <div>
+        <h2 class="page-title">Supplies Catalog</h2>
+        <p class="page-description">Đây là trang danh sách vật tư y tế của cơ sở. Giao diện render bằng Partial View.</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a class="btn btn-secondary" asp-controller="Supplies" asp-action="Search">Tìm kiếm</a>
+        <a class="btn btn-primary" asp-controller="Supplies" asp-action="Create">Thêm vật tư mới</a>
+    </div>
+</div>
+
+@* Thông báo thành công từ chức năng Create *@
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+        <strong>Thành công!</strong> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="info-panel">
+    <strong>Tổng số loại vật tư:</strong> @totalItems
+</div>
+
+@if (Model.Count == 0)
+{
+    <p>Chưa có vật tư nào trong hệ thống.</p>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-4">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <partial name="_SupplyCard" model="item" />
+            </div>
+        }
+    </div>
+}

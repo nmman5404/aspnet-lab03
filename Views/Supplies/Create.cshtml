@@ -1,0 +1,84 @@
+@model MedicalSupplies.Mvc.ViewModels.SupplyCreateViewModel
+
+@{
+    ViewData["Title"] = "Thêm vật tư mới";
+}
+
+<div class="page-header">
+    <div>
+        <h2 class="page-title">Thêm Vật tư y tế</h2>
+        <p class="page-description">Form POST dùng asp-for để bind dữ liệu và validate qua DataAnnotations.</p>
+    </div>
+    <a class="btn btn-light" asp-controller="Supplies" asp-action="Index">Quay lại danh sách</a>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <form class="p-4 bg-white shadow-sm rounded-3 border" asp-controller="Supplies" asp-action="Create" method="post">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label asp-for="Sku" class="form-label fw-bold">Mã SKU</label>
+                    <input asp-for="Sku" class="form-control" placeholder="VD: MED-MSK-01" />
+                    <span asp-validation-for="Sku" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Name" class="form-label fw-bold">Tên vật tư</label>
+                    <input asp-for="Name" class="form-control" placeholder="VD: Khẩu trang N95" />
+                    <span asp-validation-for="Name" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label asp-for="Category" class="form-label fw-bold">Nhóm phân loại</label>
+                    <input asp-for="Category" class="form-control" placeholder="VD: Bảo hộ cá nhân" />
+                    <span asp-validation-for="Category" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Supplier" class="form-label fw-bold">Nhà cung cấp</label>
+                    <input asp-for="Supplier" class="form-control" placeholder="VD: 3M Medical" />
+                    <span asp-validation-for="Supplier" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <label asp-for="UnitPrice" class="form-label fw-bold">Đơn giá (VND)</label>
+                    <input asp-for="UnitPrice" class="form-control" type="number" />
+                    <span asp-validation-for="UnitPrice" class="text-danger small"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Quantity" class="form-label fw-bold">Tồn kho ban đầu</label>
+                    <input asp-for="Quantity" class="form-control" type="number" />
+                    <span asp-validation-for="Quantity" class="text-danger small"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="MinStock" class="form-label fw-bold">Mức tồn tối thiểu</label>
+                    <input asp-for="MinStock" class="form-control" type="number" />
+                    <span asp-validation-for="MinStock" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary px-4">Lưu Vật Tư</button>
+            <a class="btn btn-secondary ms-2" asp-action="Index">Hủy bỏ</a>
+        </form>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="info-panel mt-0">
+            <h5 class="fw-bold">Model Binding từ Form POST</h5>
+            <p class="small text-muted mb-2">Khi bấm Lưu, ASP.NET Core sẽ đọc các input trong form và tự map vào <code>SupplyCreateViewModel</code>.</p>
+            <p class="small text-muted mb-0">Hệ thống sẽ chạy Validation kiểm tra lỗi. Nếu an toàn (ModelState hợp lệ), Controller mới gọi Service thêm vào danh sách.</p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        // Thêm dòng này để nạp JavaScript validate (kiểm tra lỗi ngay trên trình duyệt mà không cần reload trang)
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -81,4 +81,82 @@ public class SuppliesController : Controller
     {
         return NotFound("Đường dẫn này không khả dụng.");
     }
+
+    // Bổ sung các Action này vào trong SuppliesController.cs
+
+    // 1. CHỨC NĂNG TÌM KIẾM (HTTP GET)
+    [HttpGet]
+    public IActionResult Search(SupplySearchViewModel query)
+    {
+        var data = _supplyService.GetAll().AsQueryable();
+
+        // Thực hiện lọc dữ liệu theo các tiêu chí nếu có nhập
+        if (!string.IsNullOrEmpty(query.Keyword))
+        {
+            data = data.Where(s => s.Name.Contains(query.Keyword, StringComparison.OrdinalIgnoreCase) 
+                                || s.Sku.Contains(query.Keyword, StringComparison.OrdinalIgnoreCase));
+        }
+        if (!string.IsNullOrEmpty(query.Category))
+        {
+            data = data.Where(s => s.Category == query.Category);
+        }
+        if (query.MinPrice.HasValue)
+        {
+            data = data.Where(s => s.UnitPrice >= query.MinPrice.Value);
+        }
+        if (query.MaxPrice.HasValue)
+        {
+            data = data.Where(s => s.UnitPrice <= query.MaxPrice.Value);
+        }
+
+        // Ánh xạ kết quả sang danh sách hiển thị
+        query.Results = data.Select(s => new SupplyListItemViewModel
+        {
+            Id = s.Id, Sku = s.Sku, Name = s.Name, Category = s.Category,
+            UnitPrice = s.UnitPrice, Quantity = s.Quantity, MinStock = s.MinStock
+        }).ToList();
+
+        return View(query);
+    }
+
+    // 2. CHỨC NĂNG THÊM MỚI - HIỂN THỊ FORM TRỐNG (HTTP GET)
+    [HttpGet]
+    public IActionResult Create()
+    {
+        return View(new SupplyCreateViewModel());
+    }
+
+    // 3. CHỨC NĂNG THÊM MỚI - TIẾP NHẬN DỮ LIỆU SUBMIT FORM (HTTP POST)
+    [HttpPost]
+    [ValidateAntiForgeryToken] // Phòng chống tấn công giả mạo yêu cầu chéo trang CSRF
+    public IActionResult Create(SupplyCreateViewModel model)
+    {
+        // Kiểm tra xem dữ liệu gửi lên có vi phạm DataAnnotations quy định không
+        if (!ModelState.IsValid)
+        {
+            // Nếu có lỗi, trả lại giao diện Form kèm các thông báo lỗi hiển thị cho User sửa
+            return View(model);
+        }
+
+        // Nếu dữ liệu hợp lệ, ánh xạ từ ViewModel sang Model gốc
+        var newSupply = new Supply
+        {
+            Sku = model.Sku,
+            Name = model.Name,
+            Category = model.Category,
+            Supplier = model.Supplier,
+            UnitPrice = model.UnitPrice,
+            Quantity = model.Quantity,
+            MinStock = model.MinStock
+        };
+
+        // Gọi tầng Service lưu vào bộ nhớ
+        _supplyService.Add(newSupply);
+
+        // Dùng TempData lưu thông báo thành công tạm thời (bị xóa ngay sau khi đọc 1 lần)
+        TempData["SuccessMessage"] = $"Thêm mới vật tư y tế '{model.Name}' thành công!";
+
+        // Áp dụng PRG Pattern: Điều hướng người dùng về trang danh sách, tránh lặp dữ liệu khi F5
+        return RedirectToAction(nameof(Index));
+    }
 }

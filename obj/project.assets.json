@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Minh Man\\Desktop\\repos-vsc\\ASP.NET\\MedicalSupplies.Mvc\\MedicalSupplies.Mvc.csproj",
+      "projectUniqueName": "C:\\Users\\Minh Man\\Desktop\\repos-vsc\\ASP.NET\\MedicalSupplies.Mvc_Lab03\\MedicalSupplies.Mvc.csproj",
       "projectName": "MedicalSupplies.Mvc",
-      "projectPath": "C:\\Users\\Minh Man\\Desktop\\repos-vsc\\ASP.NET\\MedicalSupplies.Mvc\\MedicalSupplies.Mvc.csproj",
+      "projectPath": "C:\\Users\\Minh Man\\Desktop\\repos-vsc\\ASP.NET\\MedicalSupplies.Mvc_Lab03\\MedicalSupplies.Mvc.csproj",
       "packagesPath": "C:\\Users\\Minh Man\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Minh Man\\Desktop\\repos-vsc\\ASP.NET\\MedicalSupplies.Mvc\\obj\\",
+      "outputPath": "C:\\Users\\Minh Man\\Desktop\\repos-vsc\\ASP.NET\\MedicalSupplies.Mvc_Lab03\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -1,0 +1,21 @@
+@model MedicalSupplies.Mvc.ViewModels.SupplyListItemViewModel
+
+<div class="card h-100 shadow-sm border-0" style="border-radius: 12px; background: #fff;">
+    <div class="card-body">
+        <h5 class="card-title fw-bold text-dark mb-2">@Model.Name</h5>
+        <p class="card-text text-muted small mb-3">
+            SKU: @Model.Sku <br />
+            Nhóm: @Model.Category
+        </p>
+        <h5 class="text-primary fw-bold mb-3">@Model.PriceText</h5>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-secondary small">Số lượng: <strong>@Model.Quantity</strong></span>
+            <span class="@Model.StockStatusClass">@Model.StockStatus</span>
+        </div>
+    </div>
+    <div class="card-footer bg-transparent border-0 pt-0">
+        <a asp-controller="Supplies" asp-action="Detail" asp-route-id="@Model.Id" class="btn btn-light w-100" style="border: 1px solid #e5e7eb; border-radius: 8px;">
+            Xem chi tiết
+        </a>
+    </div>
+</div>

@@ -37,4 +37,12 @@ public class SupplyService
         AvgQuantity = totalSupplies > 0 ? (double)totalQuantity / totalSupplies : 0
     };
 }
+    // Bổ sung hàm này vào bên trong class SupplyService hiện tại của bạn
+    public void Add(Supply supply)
+    {
+        // Tự động tăng ID lên 1 so với ID lớn nhất hiện tại
+        supply.Id = _supplies.Any() ? _supplies.Max(s => s.Id) + 1 : 1;
+        supply.LastUpdatedAt = DateTime.Now;
+        _supplies.Add(supply);
+    }
 }

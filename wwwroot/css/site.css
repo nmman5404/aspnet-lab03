@@ -137,7 +137,7 @@ body {
 .side-card.success {  
  background: #ecfdf5;  
  border-color: #bbf7d0;  
-
+}
  /* Tối ưu chữ số kích thước lớn trong side-card */
 .side-card h3 {
     font-size: 28px;
@@ -197,5 +197,4 @@ body {
 }
 .metric-row:last-child {
     border-bottom: none;
-}
 }

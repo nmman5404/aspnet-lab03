@@ -40,9 +40,9 @@ button.accept-policy[b-zkb79a9ec6] {
 }
 
 .footer[b-zkb79a9ec6] {
-  position: absolute;
-  bottom: 0;
+  position: relative; /* Đổi từ absolute sang relative */
   width: 100%;
   white-space: nowrap;
   line-height: 60px;
+  margin-top: 30px; /* Thêm khoảng trống phía trên để không bị sát vào nội dung */
 }
