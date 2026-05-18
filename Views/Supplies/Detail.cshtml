@@ -1,0 +1,22 @@
+@model SupplyDetailViewModel
+@{
+    ViewData["Title"] = "Chi tiết vật tư";
+}
+
+<h2>Chi tiết vật tư: @Model.Name</h2>
+
+<table class="table table-striped mt-4">
+    <tr><th>ID</th><td>@Model.Id</td></tr>
+    <tr><th>SKU</th><td>@Model.Sku</td></tr>
+    <tr><th>Tên vật tư</th><td>@Model.Name</td></tr>
+    <tr><th>Nhóm</th><td>@Model.Category</td></tr>
+    <tr><th>Nhà cung cấp</th><td>@Model.Supplier</td></tr>
+    <tr><th>Đơn giá</th><td>@Model.PriceText</td></tr>
+    <tr><th>Số lượng tồn</th><td>@Model.Quantity</td></tr>
+    <tr><th>Mức tồn tối thiểu</th><td>@Model.MinStock</td></tr>
+    <tr><th>Tổng giá trị</th><td>@Model.InventoryValueText</td></tr>
+    <tr><th>Trạng thái</th><td class="fw-bold">@Model.StockStatus</td></tr>
+    <tr><th>Cập nhật lần cuối</th><td>@Model.LastUpdatedText</td></tr>
+</table>
+
+<a href="/Supplies" class="btn btn-secondary">Quay lại danh sách</a>

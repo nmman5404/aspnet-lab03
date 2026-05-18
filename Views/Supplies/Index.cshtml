@@ -1,0 +1,35 @@
+@model List<SupplyListItemViewModel>
+@{
+    ViewData["Title"] = "Danh sách vật tư";
+}
+
+<h2>Danh mục Vật tư Y tế</h2>
+<a href="/Supplies/Stats" class="btn btn-primary mb-3">Xem Thống kê</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>SKU</th>
+            <th>Tên vật tư</th>
+            <th>Nhóm</th>
+            <th>Giá bán</th>
+            <th>Tồn kho</th>
+            <th>Trạng thái</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Sku</td>
+                <td>@item.Name</td>
+                <td>@item.Category</td>
+                <td>@item.PriceText</td>
+                <td>@item.Quantity</td>
+                <td class="@item.StockStatusClass">@item.StockStatus</td>
+                <td><a href="/Supplies/Detail/@item.Id">Chi tiết</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

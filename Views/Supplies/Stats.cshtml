@@ -1,0 +1,33 @@
+@model SupplyStatsViewModel
+@{
+    ViewData["Title"] = "Thống kê";
+}
+
+<h2>Thống kê tổng quan vật tư</h2>
+
+<div class="row mt-4">
+    <div class="col-md-4 mb-3">
+        <div class="card text-center p-3">
+            <h4>Tổng mã vật tư</h4>
+            <h2 class="text-primary">@Model.TotalSupplies</h2>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card text-center p-3">
+            <h4>Vật tư đã hết</h4>
+            <h2 class="text-danger">@Model.OutOfStockCount</h2>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card text-center p-3">
+            <h4>Cần nhập thêm</h4>
+            <h2 class="text-warning">@Model.NeedReorderCount</h2>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-info mt-3">
+    <strong>Tổng giá trị tồn kho:</strong> @Model.TotalInventoryValueText
+</div>
+
+<a href="/Supplies" class="btn btn-secondary">Quay lại danh sách</a>
