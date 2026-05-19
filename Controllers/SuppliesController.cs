@@ -82,9 +82,7 @@ public class SuppliesController : Controller
         return NotFound("Đường dẫn này không khả dụng.");
     }
 
-    // Bổ sung các Action này vào trong SuppliesController.cs
-
-    // 1. CHỨC NĂNG TÌM KIẾM (HTTP GET)
+    // 8. CHỨC NĂNG TÌM KIẾM (HTTP GET)
     [HttpGet]
     public IActionResult Search(SupplySearchViewModel query)
     {
@@ -119,14 +117,14 @@ public class SuppliesController : Controller
         return View(query);
     }
 
-    // 2. CHỨC NĂNG THÊM MỚI - HIỂN THỊ FORM TRỐNG (HTTP GET)
+    // 9. CHỨC NĂNG THÊM MỚI - HIỂN THỊ FORM TRỐNG (HTTP GET)
     [HttpGet]
     public IActionResult Create()
     {
         return View(new SupplyCreateViewModel());
     }
 
-    // 3. CHỨC NĂNG THÊM MỚI - TIẾP NHẬN DỮ LIỆU SUBMIT FORM (HTTP POST)
+    // 10. CHỨC NĂNG THÊM MỚI - TIẾP NHẬN DỮ LIỆU SUBMIT FORM (HTTP POST)
     [HttpPost]
     [ValidateAntiForgeryToken] // Phòng chống tấn công giả mạo yêu cầu chéo trang CSRF
     public IActionResult Create(SupplyCreateViewModel model)
