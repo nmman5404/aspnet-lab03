@@ -1,0 +1,20 @@
+@model List<MedicalSupplies.Mvc.ViewModels.SupplyListItemViewModel>
+
+@if (Model == null || Model.Count == 0)
+{
+    <div class="alert alert-warning shadow-sm border-warning">
+        <i class="bi bi-exclamation-triangle"></i> Không tìm thấy vật tư y tế nào phù hợp. Vui lòng thử từ khóa hoặc điều kiện lọc khác.
+    </div>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-2 g-3">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <!-- Tái sử dụng lại SupplyCard đã làm trước đó -->
+                <partial name="_SupplyCard" model="item" />
+            </div>
+        }
+    </div>
+}

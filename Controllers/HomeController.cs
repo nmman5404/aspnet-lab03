@@ -13,13 +13,10 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    // Action này bắt buộc phải có để render ra file Views/Home/Index.cshtml
     public IActionResult Index()
     {
         return View();
     }
-
-    // Action xử lý trang Privacy 
     public IActionResult Privacy()
     {
         return View();

@@ -98,6 +98,10 @@ public class SuppliesController : Controller
         {
             data = data.Where(s => s.Category == query.Category);
         }
+        if (!string.IsNullOrEmpty(query.Supplier))
+        {
+            data = data.Where(s => s.Supplier.Contains(query.Supplier, StringComparison.OrdinalIgnoreCase));
+        }
         if (query.MinPrice.HasValue)
         {
             data = data.Where(s => s.UnitPrice >= query.MinPrice.Value);

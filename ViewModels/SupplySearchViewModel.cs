@@ -5,6 +5,7 @@ public class SupplySearchViewModel
     // Các tiêu chí tìm kiếm người dùng nhập vào Form (GET)
     public string? Keyword { get; set; }
     public string? Category { get; set; }
+    public string? Supplier { get; set; } 
     public decimal? MinPrice { get; set; }
     public decimal? MaxPrice { get; set; }
 
